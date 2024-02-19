@@ -11,10 +11,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.isaac.course.entities.Category;
 import com.isaac.course.entities.Order;
+import com.isaac.course.entities.OrderItem;
 import com.isaac.course.entities.Product;
 import com.isaac.course.entities.User;
 import com.isaac.course.entities.enums.OrderStatus;
 import com.isaac.course.repositories.CategoryRepository;
+import com.isaac.course.repositories.OrderItemRepository;
 import com.isaac.course.repositories.OrderRepository;
 import com.isaac.course.repositories.ProductRepository;
 import com.isaac.course.repositories.UserRepository;
@@ -31,7 +33,8 @@ public class TestConfig implements CommandLineRunner {
 	private CategoryRepository categoryRepository;
 	@Autowired
 	private ProductRepository productRepository;
-
+	@Autowired 
+	private OrderItemRepository orderItemRepository;
 	@Override
 	public void run(String... args) throws Exception {
 		User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
@@ -59,6 +62,11 @@ public class TestConfig implements CommandLineRunner {
 		p4.getCategory().add(cat3);
 		p5.getCategory().add(cat2);
 		productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice()); 
+		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 		
 	}
 }

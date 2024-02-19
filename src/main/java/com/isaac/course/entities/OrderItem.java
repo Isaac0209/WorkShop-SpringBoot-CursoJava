@@ -2,6 +2,7 @@ package com.isaac.course.entities;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.isaac.course.entities.pk.OrdemItemPK;
 
 import jakarta.persistence.EmbeddedId;
@@ -13,7 +14,7 @@ import jakarta.persistence.Table;
 public class OrderItem {
 
 	@EmbeddedId
-	private OrdemItemPK id;
+	private OrdemItemPK id = new OrdemItemPK();
 	
 	private Double price;
 	
@@ -22,13 +23,14 @@ public class OrderItem {
 	public OrderItem() {
 		
 	}
-	public OrderItem(Order order, Product product, Double price, Integer quantity) {
+	public OrderItem(Order order, Product product, Integer quantity ,Double price) {
 		super();
 		id.setOrder(order);
 		id.setProduct(product);
 		this.price = price;
 		this.quantity = quantity;
 	}
+	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
 	}
