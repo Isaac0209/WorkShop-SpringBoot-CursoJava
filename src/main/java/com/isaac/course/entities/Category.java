@@ -1,12 +1,19 @@
 package com.isaac.course.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,6 +27,9 @@ public class Category implements Serializable {
 	private Long id;
 	
 	private String name;
+	@JsonIgnore
+	@OneToMany(mappedBy = "categories")
+	private Set<Product> products = new HashSet<Product>();
 	
 	public Category() {
 		
@@ -42,6 +52,7 @@ public class Category implements Serializable {
 	public String getName() {
 		return name;
 	}
+	
 
 	public void setName(String name) {
 		this.name = name;
