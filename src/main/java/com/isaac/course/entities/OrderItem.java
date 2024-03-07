@@ -19,7 +19,7 @@ public class OrderItem {
 	private Double price;
 	
 	private Integer quantity;
-
+	
 	public OrderItem() {
 		
 	}
@@ -30,6 +30,11 @@ public class OrderItem {
 		this.price = price;
 		this.quantity = quantity;
 	}
+	
+	public Double getSubTotal() {
+		return price * quantity;
+	}
+	
 	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();

@@ -54,6 +54,13 @@ public class Order implements Serializable {
 	public Long getId() {
 		return id;
 	}
+	public Double getTotal() {
+		Double tota = 0.0;
+		for(OrderItem item : orderItem) {
+			tota += item.getSubTotal();
+		}
+		return tota;
+	}
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -103,5 +110,7 @@ public class Order implements Serializable {
 		}
 		
 	}
+	
+	
 	
 }
