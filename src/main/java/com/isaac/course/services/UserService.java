@@ -12,6 +12,8 @@ import com.isaac.course.entities.User;
 import com.isaac.course.repositories.UserRepository;
 import com.isaac.course.services.exceptions.DatabaseException;
 import com.isaac.course.services.exceptions.ResourceNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 @Service
 public class UserService {
 	@Autowired
@@ -38,10 +40,15 @@ public class UserService {
 		}
 	}
 	public User update(Long id, User obj) {
-		User entity = userRepository.getReferenceById(id);
-		entity.setEmail(obj.getEmail());
-		entity.setName(obj.getName());
-		entity.setPhone(obj.getPhone());
-		return userRepository.save(entity);
+		try {
+			User entity = userRepository.getReferenceById(id);
+			entity.setEmail(obj.getEmail());
+			entity.setName(obj.getName());
+			entity.setPhone(obj.getPhone());
+			return userRepository.save(entity);
+		}catch(EntityNotFoundException err) {
+			throw new ResourceNotFoundException(id);
+		}
+		
 	}
 }
